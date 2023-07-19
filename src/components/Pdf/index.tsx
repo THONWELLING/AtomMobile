@@ -1,13 +1,16 @@
+import React from "react";
 import { SafeAreaView, useWindowDimensions } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
 import Pdf from "react-native-pdf";
 
-const source = {
-  uri: "https://samples.leanpub.com/thereactnativebook-sample.pdf",
-  cache: true,
-};
+interface PdfProps {
+  pdfConteudo: string;
+}
 
-export default function App() {
+
+const DanfePdf: React.FC<PdfProps> = ({ pdfConteudo }) => {
   const { width, height } = useWindowDimensions();
+  const source = { uri:`data:application/pdf;base64,${pdfConteudo}`, };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -30,3 +33,19 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      marginTop: 25,
+  },
+  pdf: {
+      flex:1,
+      width:Dimensions.get('window').width,
+      height:Dimensions.get('window').height,
+  }
+});
+
+export default DanfePdf;
